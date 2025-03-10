@@ -3,113 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>反应力测试</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #739978;
-            text-align: center;
-            padding: 20px;
-        }
-        .message {
-            font-size: 24px;
-            margin: 20px;
-        }
-        .red { color: red; }
-        .green { color: green; }
-        .blue { color: blue; }
-        .yellow { color: yellow; }
-    </style>
+    <title>祝贺王君晏生日快乐</title>
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    <h1 class="red">反应力测试</h1>
-    <p class="black">游戏会随机输出一个字符（大小写字母，数字），你需要迅速在键盘上输入对应字符，并且按下 Enter 键。</p>
-    <button id="startButton">开始游戏</button>
-    <div id="gameArea" style="display:none;">
-        <p id="countdown" class="message"></p>
-        <p id="prompt" class="blue message"></p>
-        <p id="result" class="message"></p>
-        <input type="text" id="userInput" maxlength="1" autocomplete="off">
-        <p id="stats" class="message"></p>
-    </div>
-
-    <script>
-        const chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
-        let allTime = 0;
-        let wrong = 0;
-        let rounds = 10;
-        let currentChar = '';
-        let currentRound = 0;
-        let startTime = 0;
-
-        document.getElementById('startButton').addEventListener('click', function() {
-            this.style.display = 'none';
-            startGame();
-        });
-
-        function startGame() {
-            document.getElementById('gameArea').style.display = 'block';
-            countdown(3, () => nextRound());
-        }
-
-        function countdown(time, callback) {
-            if (time > 0) {
-                document.getElementById('countdown').textContent = time;
-                setTimeout(() => countdown(time - 1, callback), 1000);
-            } else {
-                document.getElementById('countdown').textContent = '';
-                callback();
-            }
-        }
-
-        function nextRound() {
-            if (currentRound >= rounds) {
-                endGame();
-                return;
-            }
-
-            currentRound++;
-            currentChar = chars[Math.floor(Math.random() * chars.length)];
-            document.getElementById('prompt').textContent = `请输入字符: ${currentChar}`;
-            document.getElementById('result').textContent = '';
-            document.getElementById('userInput').value = '';
-            document.getElementById('userInput').focus();
-            startTime = new Date().getTime();
-        }
-
-        document.getElementById('userInput').addEventListener('keydown', function(event) {
-            if (event.key === 'Enter') {
-                const inputChar = this.value;
-                const endTime = new Date().getTime();
-                const timeTaken = (endTime - startTime) / 1000;
-
-                allTime += timeTaken;
-
-                if (inputChar !== currentChar) {
-                    document.getElementById('result').innerHTML = `<span class="red">你输入的字符不正确 :-(</span>`;
-                    wrong++;
-                } else {
-                    document.getElementById('result').innerHTML = `<span class="green">你输入的字符正确 :)</span>`;
-                }
-
-                document.getElementById('stats').textContent = `你输入了 ${inputChar} ，用时 ${timeTaken.toFixed(2)} 秒`;
-                setTimeout(nextRound, 1000);
-            }
-        });
-
-        function endGame() {
-            const averageTime = (allTime / rounds).toFixed(2);
-            const score = (allTime / (rounds - wrong)).toFixed(2);
-
-            document.getElementById('prompt').textContent = '游戏结束！';
-            document.getElementById('stats').innerHTML = `
-                平均用时: ${averageTime} 秒<br>
-                错误次数: ${wrong}<br>
-                分数: ${score}
-            `;
-            document.getElementById('result').textContent = '';
-            document.getElementById('userInput').style.display = 'none';
-        }
-    </script>
+    <header>
+        <img src="images/decoration.jpg" alt="生日庆祝装饰" id="header-image">
+    </header>
+    <main>
+        <h1>祝贺王君晏生日快乐!</h1>
+        <p>点击蛋糕来庆祝吧！</p>
+        <div id="cake-container">
+            <img src="images/cake.png" alt="蛋糕" id="cake">
+        </div>
+        <audio id="song" src="audio/happy-birthday.mp3"></audio>
+        <div id="fireworks-container"></div>
+        <div id="balloons-container"></div>
+    </main>
+    <script src="js/script.js"></script>
 </body>
 </html>
