@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // 播放生日快乐歌曲
         song.play();
 
-        // 创建连续的烟花效果
+        // 创建连续的烟花效果--
         for (let i = 0; i < 20; i++) {
             setTimeout(createFireworks, i * 500);
         }
